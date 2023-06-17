@@ -1,0 +1,168 @@
+package Actividad3;
+
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Stack;
+
+public class Deck {
+
+    private Stack<Card> cardStack = new Stack<Card>();
+    private ArrayList<Card> cardArrayList = new ArrayList<>();
+
+    private static int opcion;
+
+    public Deck(Card card, int opcion) {
+
+        Deck.opcion = opcion;
+
+        if(Deck.opcion == 1) {
+
+            cardStack.add(card);
+
+        } else {
+
+            cardArrayList.add(card);
+
+        }
+
+    }
+
+    public void shuffle() {
+
+        SecureRandom numerosAleatorios = new SecureRandom();
+
+        if(opcion == 1) {
+
+            for(int i = 0; i < cardStack.size(); i++) {
+
+                int j = numerosAleatorios.nextInt(52);
+
+                Card card = cardStack.get(i);
+
+                cardStack.set(i, cardStack.get(j));
+
+                cardStack.set(j, card);
+
+            }
+
+        } else {
+
+            for(int i = 0; i < cardArrayList.size(); i++) {
+
+                int j = numerosAleatorios.nextInt(52);
+
+                Card card = cardArrayList.get(i);
+
+                cardArrayList.set(i, cardArrayList.get(j));
+
+                cardArrayList.set(j, card);
+
+            }
+
+        }
+
+        System.out.println("Se mezclo el deck");
+
+    }
+
+    public void head() {
+
+        if(opcion == 1) {
+
+            Card card = cardStack.remove(0);
+
+            System.out.println(card);
+            System.out.println("Quedan { " + cardStack.size() + " numero de cartas} ");
+
+        } else {
+
+            Card card = cardArrayList.remove(0);
+
+            System.out.println(card);
+            System.out.println("Quedan { " + cardArrayList.size() + " numero de cartas} ");
+
+        }
+
+    }
+
+    public void pick(int numero) {
+
+        if(numero >= 0 && numero < 52) {
+
+            if(opcion == 1) {
+
+                Card card = cardStack.remove(numero);
+
+                System.out.println(card);
+                System.out.println("Quedan { " + cardStack.size() + " numero de cartas} ");
+
+            } else {
+
+                Card card = cardArrayList.remove(numero);
+
+                System.out.println(card);
+                System.out.println("Quedan { " + cardArrayList.size() + " numero de cartas} ");
+
+            }
+
+        } else {
+
+            System.out.println("No se pudo sacar la carta");
+
+        }
+
+    }
+
+    public void hand() {
+
+        if(! cardStack.isEmpty() && ! cardArrayList.isEmpty()) {
+
+            Card[] cards = new Card[5];
+
+            if (opcion == 1) {
+
+                int i = 0;
+
+                while (i < cards.length && ! cardStack.isEmpty()) {
+
+                    cards[i] = cardStack.remove(i);
+
+                    i++;
+
+                }
+
+                for(i = 0; i < cards.length; i++) {
+
+                    System.out.println(cards[i]);
+
+                }
+
+                System.out.println("Quedan { " + cardStack.size() + " numero de cartas} ");
+
+            } else {
+
+                int i = 0;
+
+                while (i < cards.length && ! cardArrayList.isEmpty()) {
+
+                    cards[i] = cardArrayList.remove(i);
+
+                    i++;
+
+                }
+
+                for(i = 0; i < cards.length; i++) {
+
+                    System.out.println(cards[i]);
+
+                }
+
+                System.out.println("Quedan { " + cardArrayList.size() + " numero de cartas} ");
+
+            }
+
+        }
+
+    }
+
+}
